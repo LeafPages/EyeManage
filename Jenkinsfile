@@ -15,5 +15,17 @@ pipeline {
       }
     }
 
+    stage('QA Build (AWS)') {
+      steps {
+        echo 'Build to be moved to QA Environment using SSH'
+      }
+    }
+
+    stage('Integration Test') {
+      steps {
+        bat 'mvn test -DEnvironment=QA'
+      }
+    }
+
   }
 }
