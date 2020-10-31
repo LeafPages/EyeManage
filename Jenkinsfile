@@ -11,7 +11,7 @@ pipeline {
     stage('Smoke Tests') {
       steps {
         git(url: 'https://github.com/LeafPages/EyeAutomation', branch: 'master')
-        bat(script: 'mvn test', label: 'Smoke tests')
+        bat(script: 'mvn test -DEnvironment=Dev', label: 'Smoke tests')
       }
     }
 
