@@ -4,7 +4,7 @@ pipeline {
     stage('Dev Build') {
       steps {
         git(url: 'https://github.com/LeafPages/EyeManage', branch: 'master', changelog: true)
-        sh 'mvn install'
+        bat(script: 'mvn install', label: 'Maven Dev Build')
       }
     }
 
