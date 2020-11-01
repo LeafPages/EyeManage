@@ -47,6 +47,9 @@ pipeline {
     }
 
     stage('Certify') {
+      when {
+        branch 'master'
+      }
       steps {
         echo 'QA Certified'
       }
