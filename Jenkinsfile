@@ -1,29 +1,54 @@
 pipeline {
   agent any
   stages {
-    stage('Dev Build') {
+    stage('Development Build') {
       steps {
-        git(url: 'https://github.com/LeafPages/EyeManage', branch: 'master', changelog: true)
-        bat(script: 'mvn install', label: 'Maven Dev Build')
+        echo 'Pull the code from the Git Repo'
+        echo 'Create a Build Using Repo'
       }
     }
 
     stage('Smoke Tests') {
       steps {
-        git(url: 'https://github.com/LeafPages/EyeAutomation', branch: 'master')
-        bat(script: 'mvn test -DEnvironment=Dev', label: 'Smoke tests')
+        echo 'Run 2 Chrome Tests'
       }
     }
 
-    stage('QA Build (AWS)') {
+    stage('Deploy in QA') {
       steps {
-        echo 'Build to be moved to QA Environment using SSH'
+        echo 'Stop the running server'
+        echo 'Move the build to QA'
+        echo 'Start the QA Server'
+        echo 'Notify to QA by Email'
       }
     }
 
     stage('Integration Test') {
+      parallel {
+        stage('Integration Test') {
+          steps {
+            echo 'Sanity Tests (UI)'
+          }
+        }
+
+        stage('API Test') {
+          steps {
+            echo 'Run REST Automation Tests'
+          }
+        }
+
+        stage('Performance Testing') {
+          steps {
+            echo 'Run JMeter tests'
+          }
+        }
+
+      }
+    }
+
+    stage('Certify') {
       steps {
-        bat 'mvn test -DEnvironment=QA'
+        echo 'QA Certified'
       }
     }
 
