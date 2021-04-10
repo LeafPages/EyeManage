@@ -50,6 +50,7 @@ pipeline {
       steps {
         echo 'QA Certified'
         jiraComment(body: 'Updated from Pipeline as it is certified to the next stage', issueKey: 'SFO-87')
+        input 'Please confirm Build is fine or not'
       }
     }
 
